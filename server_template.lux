@@ -10,7 +10,11 @@
  *   - Lux has no `continue` keyword.
  *   - Flatten nested calls; avoid res.html(renderTemplate(...)).
  *   - Dict is string→string only; use TplCtx for arrays.
+ *   - Expanded templates are cached (edit tpl → restart server).
  */
+
+/* path → fully expanded source (includes resolved). */
+var tplFileCache = Dict();
 
 fun escapeHtml(s) {
   if (s == nil) return "";
@@ -150,7 +154,7 @@ fun interpolateString(src, ctx) {
   return out;
 }
 
-fun expandIncludes(path) {
+fun expandIncludesUncached(path) {
   var src = readFile(path);
   if (src == nil) {
     return "Template not found: " + path;
@@ -186,6 +190,14 @@ fun expandIncludes(path) {
     cursor = incStart + len(incContent);
   }
   return src;
+}
+
+fun expandIncludes(path) {
+  var cached = tplFileCache.get(path);
+  if (cached != nil) return cached;
+  cached = expandIncludesUncached(path);
+  tplFileCache.put(path, cached);
+  return cached;
 }
 
 fun renderItemList(inner, varName, items, ctx) {

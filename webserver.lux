@@ -17,13 +17,15 @@ fun handleData(req, res) {
 }
 
 fun handleRoot(req, res) {
-  var ctx = TplCtx("Lux Template Example", ["One", "Two", "Three"]);
-  res.html(renderTemplate("public/index.tpl", ctx));
+  var ctx = TplCtx("Technomancy Site", []);
+  var html = renderTemplate("public/index.tpl", ctx);
+  res.html(html);
 }
 
 fun handleOop(req, res) {
-  var ctx = TplCtx("Lux Template Example", ["One", "Two", "Three"]);
-  res.html(renderTemplate("public/oop-index.tpl", ctx));
+  var ctx = TplCtx("OOP", []);
+  var html = renderTemplate("public/oop-index.tpl", ctx);
+  res.html(html);
 }
 
 fun handleAck(req, res) {
@@ -32,11 +34,9 @@ fun handleAck(req, res) {
 }
 
 fun handleList(req, res) {
-  var ctx = Dict();
-  ctx.put("title", "Lux Template List");
-  ctx.put("items", ["Apple", "Banana", "Cherry", "Date"]);
+  var ctx = TplCtx("Lux Template List", ["Apple", "Banana", "Cherry", "Date"]);
   var html = renderTemplate("public/index.tpl", ctx);
-  res.send(html);
+  res.html(html);
 }
 
 var server = Server(8080);
