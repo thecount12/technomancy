@@ -1,0 +1,55 @@
+// webserver but most of this might move to another file
+
+import "server_template.lux";
+
+fun handleHello(req, res) { res.send("Hello from Lux!"); }
+
+fun handleData(req, res) {
+  var body = parseJSON(req.body);
+  if (body == nil) {
+    res.status(400);
+    res.send("{\"error\":\"invalid json\"}");
+    return;
+  }
+  print body;
+  res.status(201);
+  res.json(body);
+}
+
+fun handleRoot(req, res) {
+  var ctx = TplCtx("Lux Template Example", ["One", "Two", "Three"]);
+  res.html(renderTemplate("public/index.tpl", ctx));
+}
+
+fun handleOop(req, res) {
+  var ctx = TplCtx("Lux Template Example", ["One", "Two", "Three"]);
+  res.html(renderTemplate("public/oop-index.tpl", ctx));
+}
+
+fun handleAck(req, res) {
+  res.status(201);
+  res.json(parseJSON("{\"status\":\"received\"}"));
+}
+
+fun handleList(req, res) {
+  var ctx = Dict();
+  ctx.put("title", "Lux Template List");
+  ctx.put("items", ["Apple", "Banana", "Cherry", "Date"]);
+  var html = renderTemplate("public/index.tpl", ctx);
+  res.send(html);
+}
+
+var server = Server(8080);
+//fun logger(req, res, next) {
+//  print "Request: " + req.method + " " + req.path;
+//  next();
+//}
+
+server.get("/", handleRoot);
+server.get("/oop", handleOop);
+server.get("/list", handleList);
+//server.use(logger);
+server.get("/hello", handleHello);
+server.post("/data", handleData);
+server.static("public");   /* serve GET files from ./public/ */
+server.start();
