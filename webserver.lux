@@ -1,6 +1,20 @@
-// webserver but most of this might move to another file
+/* Technomancy site — uses Lux builtin renderTemplate.
+ *
+ * Run (from this directory):
+ *   lux webserver.lux
+ *   /path/to/posix/lux webserver.lux
+ *
+ * Template syntax:
+ *   {{ key }}  {% for x in items %}  {% include "file.tpl" %}
+ * Includes are cached until process exit (restart after editing .tpl).
+ */
 
-import "server_template.lux";
+class TplCtx {
+  init(title, items) {
+    this.title = title;
+    this.items = items;
+  }
+}
 
 fun handleHello(req, res) { res.send("Hello from Lux!"); }
 
@@ -40,16 +54,10 @@ fun handleList(req, res) {
 }
 
 var server = Server(8080);
-//fun logger(req, res, next) {
-//  print "Request: " + req.method + " " + req.path;
-//  next();
-//}
-
 server.get("/", handleRoot);
 server.get("/oop", handleOop);
 server.get("/list", handleList);
-//server.use(logger);
 server.get("/hello", handleHello);
 server.post("/data", handleData);
-server.static("public");   /* serve GET files from ./public/ */
+server.static("public");
 server.start();
