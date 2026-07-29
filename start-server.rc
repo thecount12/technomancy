@@ -1,4 +1,4 @@
 #!/bin/rc
 rfork n
-cd /usr/william/bin/amd64 || 'no lux dir'
-exec lux /usr/william/code/technomancy/webserver.lux >>/sys/log/lux-vhost >[2=1]
+cd /usr/william/code/technomancy || { echo 'no technomancy dir' >[1=2]; exit 1 }
+exec lux webserver.lux >>/sys/log/lux-vhost >[2=1]
