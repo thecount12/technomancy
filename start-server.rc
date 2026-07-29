@@ -1,0 +1,4 @@
+#!/bin/rc
+rfork n
+cd /usr/william/bin/amd64 || 'no lux dir'
+exec >>[2]/sys/log/lux-vhost '[2=]' lux /usr/william/code/technomancy/webserver.lux
