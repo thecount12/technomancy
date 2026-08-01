@@ -42,6 +42,12 @@ fun handleOop(req, res) {
   res.html(html);
 }
 
+fun handleDimensions(req, res) {
+  var ctx = TplCtx("OOP", []);
+  var html = renderTemplate("public/o-dimensions.tpl", ctx);
+  res.html(html);
+}
+
 fun handleAck(req, res) {
   res.status(201);
   res.json(parseJSON("{\"status\":\"received\"}"));
@@ -56,6 +62,7 @@ fun handleList(req, res) {
 var server = Server(8080);
 server.get("/", handleRoot);
 server.get("/oop", handleOop);
+server.get("/dimensions", handleDimensions);
 server.get("/list", handleList);
 server.get("/hello", handleHello);
 server.post("/data", handleData);
