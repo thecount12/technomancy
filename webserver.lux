@@ -48,6 +48,30 @@ fun handleDimensions(req, res) {
   res.html(html);
 }
 
+fun handleNeophyte(req, res) {
+  var ctx = TplCtx("OOP", []);
+  var html = renderTemplate("public/o-neophyte.tpl", ctx);
+  res.html(html);
+}
+
+fun handleEnchant(req, res) {
+  var ctx = TplCtx("OOP", []);
+  var html = renderTemplate("public/o-enchant.tpl", ctx);
+  res.html(html);
+}
+
+fun handleAbout(req, res) {
+  var ctx = TplCtx("OOP", []);
+  var html = renderTemplate("public/o-about.tpl", ctx);
+  res.html(html);
+}
+
+fun handleTron(req, res) {
+  var ctx = TplCtx("OOP", []);
+  var html = renderTemplate("public/o-tron.tpl", ctx);
+  res.html(html);
+}
+
 fun handleAck(req, res) {
   res.status(201);
   res.json(parseJSON("{\"status\":\"received\"}"));
@@ -63,6 +87,10 @@ var server = Server(8080);
 server.get("/", handleRoot);
 server.get("/oop", handleOop);
 server.get("/dimensions", handleDimensions);
+server.get("/enchant", handleEnchant);
+server.get("/neophyte", handleNeophyte);
+server.get("/about", handleAbout);
+server.get("/tron", handleTron);
 server.get("/list", handleList);
 server.get("/hello", handleHello);
 server.post("/data", handleData);

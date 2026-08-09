@@ -27,7 +27,7 @@
 <h2>Infinite Complexity</h2>
 <p>Superstring theory is merely one map of reality. Other mathematical frameworks expand beyond 10 dimensions entirely depending on the specific flavor of string theory utilized. From the chaotic bubble universes of Stanford’s Inflationary Multiverse model to the mind-bending possibility of dual time dimensions, reality quickly scales into infinite complexity.</p>
 <p>We are left standing on the edge of a vast cosmic ocean, forever slipping between dimensions.</p>
-<img src="calabi.png">
+<img src="calabi.jpg" height="300", width="300">
             </div>
        
         </section>
